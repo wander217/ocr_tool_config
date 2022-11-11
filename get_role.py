@@ -1,4 +1,3 @@
-import argparse
 from doccano_api_client import DoccanoClient
 from admin_config import ADMIN_CONFIG
 

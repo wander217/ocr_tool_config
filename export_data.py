@@ -1,10 +1,8 @@
 import argparse
 import json
-import os
 import time
 from io import BytesIO
 from zipfile import ZipFile
-
 from doccano_api_client import DoccanoClient
 from admin_config import ADMIN_CONFIG
 
