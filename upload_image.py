@@ -8,12 +8,12 @@ def add_image(host_name: str,
               admin_username: str,
               admin_password: str,
               project_id: int,
-              image_path: str):
+              image_root: str):
     client = DoccanoClient(host_name, admin_username, admin_password)
     upload_ids = []
-    for image_file in os.listdir(image_path):
+    for image_file in os.listdir(image_root):
         try:
-            image = open(os.path.join(image_path, image_file), 'rb')
+            image = open(os.path.join(image_root, image_file), 'rb')
             fp_resp = client.post("v1/fp/process/", files={"filepond": image}, as_json=False)
             fp_resp.raise_for_status()
             upload_ids.append(fp_resp.text)
@@ -39,8 +39,8 @@ def add_image(host_name: str,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="creating project")
     parser.add_argument("-pi", "--project_id", type=int, help="id of project")
-    parser.add_argument("-ip", "--image_path", type=str, default="", help="path of image folder")
+    parser.add_argument("-ip", "--image_root", type=str, default="", help="path of image folder")
     arg = parser.parse_args()
     add_image(**ADMIN_CONFIG,
               project_id=arg.project_id,
-              image_path=arg.image_path)
+              image_root=arg.image_root)
