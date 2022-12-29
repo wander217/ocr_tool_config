@@ -2,6 +2,7 @@ import argparse
 import os
 from doccano_api_client import DoccanoClient
 from admin_config import ADMIN_CONFIG
+from tqdm import tqdm
 
 
 def add_image(host_name: str,
@@ -11,7 +12,7 @@ def add_image(host_name: str,
               image_root: str):
     client = DoccanoClient(host_name, admin_username, admin_password)
     upload_ids = []
-    for image_file in os.listdir(image_root):
+    for image_file in tqdm(os.listdir(image_root)):
         try:
             image = open(os.path.join(image_root, image_file), 'rb')
             fp_resp = client.post("v1/fp/process/", files={"filepond": image}, as_json=False)
